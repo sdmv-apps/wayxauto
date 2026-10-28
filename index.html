@@ -12,6 +12,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<!-- Google Analytics (GA4, WayXAuto Firebase project's web stream): anonymous page views and download clicks only. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RPBBNJB4Y8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-RPBBNJB4Y8", { allow_google_signals: false, allow_ad_personalization_signals: false });
+</script>
 <style>
   /* Same structure as the AutoMaxi site, in the WayXAuto app's look: light glass cards on a soft lime aurora, one
      lime accent, Figtree throughout. Committed light look to match the app. */
@@ -229,6 +237,7 @@
       </div>
       <div class="disclaimer">
         <p>Not affiliated with, endorsed by, or supported by OMOWAY or Google. OMOWAY, Android Auto and related names are trademarks of their respective owners.</p>
+        <p>Privacy: this site and the app use Google Analytics for anonymous usage statistics (page views, downloads, and in the app whether Android Auto starts). No account, no ads, no advertising ID.</p>
         <p>WayXAuto is experimental software, provided as-is with no warranty. Never interact with your phone or the motorcycle's display while riding: set up everything before you set off, and use it lawfully.</p>
       </div>
     </footer>
@@ -238,7 +247,7 @@
 <script>
   // ---- GitHub Releases config: set OWNER (and REPO if you rename it) ----
   var OWNER = "sdmv-apps";    // GitHub account
-  var REPO  = "wayxauto";     // public distribution repo (website + APK releases); not created yet
+  var REPO  = "wayxauto";     // public distribution repo (website + APK releases)
   // ----------------------------------------------------------------------
   var RELEASES_PAGE = "https://github.com/" + OWNER + "/" + REPO + "/releases/latest";
 
@@ -249,6 +258,9 @@
     var verEl = document.getElementById("ver");
     // Fallback that always works even if the API call fails or JS is slow.
     btn.href = RELEASES_PAGE;
+    btn.addEventListener("click", function () {
+      if (window.gtag) gtag("event", "download_click", { release: verEl.textContent.split(" ")[0] || "unknown" });
+    });
 
     function fmt(n) { return n.toLocaleString("en-US"); }
 
