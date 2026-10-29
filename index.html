@@ -266,6 +266,14 @@
             <li>Come back to WayXAuto. The step turns green by itself.</li>
           </ol>
           <p>Developer mode stays on. After a phone restart, or if Android Auto stops the server, only step 3 is needed again.</p></details>
+        <details class="step"><summary><h3>Android Auto doesn't answer on my Xiaomi, Redmi or POCO phone</h3></summary>
+          <p>These phones pause apps in the background, including Android Auto, so it can't answer WayXAuto. WayXAuto's setup shows this as step 4.</p>
+          <ol>
+            <li>Open Settings &rarr; Apps &rarr; <b>Android Auto</b> (or tap <b>Open Android Auto app info</b> in WayXAuto).</li>
+            <li>Turn on <b>Autostart</b>.</li>
+            <li>Tap <b>Battery saver</b> and choose <b>No restrictions</b>.</li>
+            <li>Come back to WayXAuto and start Android Auto again.</li>
+          </ol></details>
         <details class="step"><summary><h3>My motorcycle still shows the OMOWAY app</h3></summary>
           <p>Your motorcycle shows one phone app at a time, so the OMOWAY app has to let go first.</p>
           <ol>
@@ -279,7 +287,12 @@
       <p class="eyebrow">Changelog</p>
       <h2>What's new</h2>
       <div class="faq">
-        <details class="step" open><summary><h3>WayXAuto 0.2.6<span class="tag">Latest</span><span class="when">29 Oct 2026</span></h3></summary>
+        <details class="step" open><summary><h3>WayXAuto 0.2.7<span class="tag">Latest</span><span class="when">29 Oct 2026</span></h3></summary>
+          <ul>
+            <li><b>Xiaomi, Redmi and POCO phones.</b> Setup has a new step that opens Android Auto's app info, where you turn on Autostart and set Battery saver to No restrictions. Without it, the phone pauses Android Auto and it never answers WayXAuto.</li>
+            <li><b>What's new in updates.</b> The update prompt now lists what changed.</li>
+          </ul></details>
+        <details class="step"><summary><h3>WayXAuto 0.2.6<span class="when">29 Oct 2026</span></h3></summary>
           <ul>
             <li><b>Share diagnostics.</b> If Android Auto doesn't reach your motorcycle, tap Share diagnostics on the home screen and send the report to us. It lists your phone, its video encoders and the last session, and leaves your phone only when you choose where to share it.</li>
             <li>Skips secure video encoders, which on some MediaTek phones could start but send no picture to the motorcycle.</li>
