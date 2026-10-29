@@ -99,6 +99,8 @@
   .btn:active { transform: translateY(0); }
   .btn svg { width: 20px; height: 20px; }
   .dl-meta { color: var(--fg-3); font-size: 0.9rem; }
+  .dl-help { color: var(--fg-3); font-size: 0.9rem; margin: 10px 0 0; }
+  .dl-help a { color: inherit; text-decoration: underline; }
   .counter { display: inline-flex; align-items: baseline; gap: 7px; color: var(--fg-2); font-size: 0.95rem; }
   .counter b { font-weight: 700; color: var(--fg); font-size: 1.05rem; font-variant-numeric: tabular-nums; }
   .counter.pending b { color: var(--fg-3); }
@@ -186,6 +188,7 @@
           <span aria-hidden="true"> · </span>
           <span id="ver">APK · Android 8+</span>
         </div>
+        <p class="dl-help">Not from the Play Store, so Android asks you to allow it. <a href="#install">How to install</a></p>
       </div>
     </header>
 
@@ -214,6 +217,26 @@
           <h3>Free &amp; independent</h3>
           <p>No ads and no account. Free forever, supported entirely by optional donations.</p>
         </div>
+      </div>
+    </section>
+
+    <section id="install">
+      <p class="eyebrow">Install</p>
+      <h2>Installing the APK</h2>
+      <p class="lead">WayXAuto is downloaded from this site rather than the Play Store, so Android shows a few safety prompts the first time. They are normal for any app installed this way.</p>
+      <div class="faq">
+        <div class="step"><h3>Download and install</h3>
+          <ol>
+            <li>Tap <b>Download for Android</b>. If your browser warns that this type of file can be harmful, tap <b>Download anyway</b>.</li>
+            <li>Open the downloaded <b>WayXAuto</b> file from the notification or your Downloads.</li>
+            <li>Android says your browser isn't allowed to install apps: tap <b>Settings</b>, turn on <b>Allow from this source</b>, then go back.</li>
+            <li>Tap <b>Install</b>, then <b>Open</b>.</li>
+          </ol>
+          <p>Updating? Install the new version over the old one. Your setup and keys are kept.</p></div>
+        <div class="step"><h3>Play Protect says the app is unknown or unsafe</h3>
+          <p>Play Protect warns about apps that don't come from the Play Store. Tap <b>More details</b>, then <b>Install anyway</b>. If it offers to scan the app, you can let it.</p>
+          <p>WayXAuto doesn't read your SMS, contacts or notifications, and doesn't use Accessibility. It asks only for what it needs to reach your motorcycle: nearby Wi-Fi devices (on older Android, location, which Android requires for Wi-Fi scanning) and notifications to show that it's running.</p>
+          <p>To check your download is the original file, compare its SHA-256 with the one on <a href="https://github.com/sdmv-apps/wayxauto/releases/latest" rel="noopener" target="_blank">GitHub Releases</a>.</p></div>
       </div>
     </section>
 
