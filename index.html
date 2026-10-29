@@ -127,6 +127,22 @@
   .step .n::before { content: counter(step); }
   .step h3 { font-weight: 700; font-size: 1.02rem; margin: 4px 0 3px; }
   .step p { color: var(--fg-2); margin: 0; font-size: 0.93rem; }
+  .faq { display: grid; gap: 12px; }
+  .faq .step { display: block; }
+  .faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-weight: 700; font-size: 1.3rem; color: var(--fg-2); }
+  .faq details[open] summary::after { content: "\2212"; }
+  .faq summary h3 { margin: 2px 0; }
+  .faq p, .faq ol { color: var(--fg-2); font-size: 0.93rem; margin: 10px 0 0; }
+  .faq ol { padding-left: 1.2em; }
+  .faq li { margin: 4px 0; }
+  .faq a { color: inherit; }
+  .faq ul { color: var(--fg-2); font-size: 0.93rem; margin: 10px 0 0; padding-left: 1.2em; }
+  .faq .when { color: var(--fg-2); font-weight: 400; font-size: 0.85rem; margin-left: 8px; }
+  .faq .tag { display: inline-block; margin-left: 8px; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-size: 0.72rem; font-weight: 700; vertical-align: 2px; }
+  .more { margin: 14px 0 0; font-size: 0.93rem; color: var(--fg-2); }
+  .more a { color: inherit; text-decoration: underline; }
 
   /* ---- Support ---- */
   .support { background: var(--glass); border: 1px solid var(--glass-stroke); border-radius: 28px; padding: 28px; box-shadow: var(--shadow); }
@@ -207,9 +223,60 @@
       <p class="lead">A short one-time setup. The app walks you through it and checks each step before you ride.</p>
       <div class="steps">
         <div class="step"><span class="n"></span><div><h3>Install WayXAuto</h3><p>Download the APK and allow the install from your browser or files app.</p></div></div>
-        <div class="step"><span class="n"></span><div><h3>Import the keys &amp; turn on Android Auto developer mode</h3><p>WayXAuto downloads the free public Open Headunit keys for you and shows how to start Android Auto's head unit server.</p></div></div>
+        <div class="step"><span class="n"></span><div><h3>Get the keys &amp; start Android Auto's head unit server</h3><p>Tap Get keys: WayXAuto downloads two free public files and sets them up. Then turn on Android Auto developer mode and start its head unit server. The app shows each step and ticks it off by itself.</p></div></div>
         <div class="step"><span class="n"></span><div><h3>Turn on your motorcycle and pick its display</h3><p>Open WayXAuto, tap Find and choose your motorcycle. Android Auto appears on the dash.</p></div></div>
       </div>
+    </section>
+
+    <section id="faq">
+      <p class="eyebrow">Questions</p>
+      <h2>Setup, explained</h2>
+      <div class="faq">
+        <details class="step"><summary><h3>Where do the head unit keys come from?</h3></summary>
+          <p>Android Auto only connects to a head unit that presents a certificate. WayXAuto uses the free sample certificate and key from <a href="https://github.com/andreknieriem/open-headunit/tree/a8d8a92d80256feee56174a21d2d33cc2664c9a7/app/src/main/res/raw" rel="noopener" target="_blank">Open Headunit</a>, an open-source Android Auto head unit project on GitHub. They are published openly for testing, so everyone gets the same two files. They aren't secret, contain nothing about you, your phone or your motorcycle, and don't unlock anything. The certificate is labelled &ldquo;Google-Android-Reference&rdquo;, the name of that sample identity.</p>
+          <p>WayXAuto doesn't include them in the app. When you tap Get keys, it downloads them from GitHub, from the exact version WayXAuto was tested with, checks their fingerprints and keeps them inside the app only.</p></details>
+        <details class="step"><summary><h3>How do I turn on Android Auto developer mode?</h3></summary>
+          <ol>
+            <li>In WayXAuto setup, tap <b>Open Android Auto settings</b>.</li>
+            <li>Scroll to the very bottom and tap <b>Version</b> about 10 times. When Android Auto asks to allow development settings, tap <b>OK</b>.</li>
+            <li>Tap <b>&#8942;</b> at the top right, then <b>Start head unit server</b>. No &#8942; menu yet? Do step 2 again.</li>
+            <li>Come back to WayXAuto. The step turns green by itself.</li>
+          </ol>
+          <p>Developer mode stays on. After a phone restart, or if Android Auto stops the server, only step 3 is needed again.</p></details>
+        <details class="step"><summary><h3>My motorcycle still shows the OMOWAY app</h3></summary>
+          <p>Your motorcycle shows one phone app at a time, so the OMOWAY app has to let go first.</p>
+          <ol>
+            <li>Force stop the OMOWAY app. WayXAuto shows a button that opens its app info.</li>
+            <li>On your motorcycle, close <b>Navigation</b> and open it again. Android Auto then appears.</li>
+          </ol></details>
+      </div>
+    </section>
+
+    <section id="changelog">
+      <p class="eyebrow">Changelog</p>
+      <h2>What's new</h2>
+      <div class="faq">
+        <details class="step" open><summary><h3>WayXAuto 0.2.5<span class="tag">Latest</span><span class="when">29 Oct 2026</span></h3></summary>
+          <ul>
+            <li><b>Get keys in one tap.</b> WayXAuto downloads the free public head unit keys itself and checks them. No Downloads folder, no file picker. &ldquo;Where do these come from?&rdquo; explains what they are.</li>
+            <li><b>Clearer developer mode steps.</b> The setup step turns green on its own once Android Auto's head unit server is running.</li>
+            <li><b>Motorcycle still showing the OMOWAY app?</b> WayXAuto notices and walks you through it: force stop the OMOWAY app, then close and reopen Navigation on your motorcycle.</li>
+            <li>&ldquo;Android Auto is on your bike&rdquo; now shows only once the motorcycle has actually accepted the picture.</li>
+          </ul></details>
+        <details class="step"><summary><h3>WayXAuto 0.2.3<span class="when">28 Oct 2026</span></h3></summary>
+          <ul>
+            <li>Anonymous usage statistics with Google Analytics: active users, and whether Android Auto starts and reaches the motorcycle. No account, no ads, no advertising ID.</li>
+          </ul></details>
+        <details class="step"><summary><h3>WayXAuto 0.2.2<span class="when">28 Oct 2026</span></h3></summary>
+          <ul>
+            <li>Works on more phones: Android Auto now starts on phones whose video encoder rejected the previous settings, for example the POCO F3.</li>
+          </ul></details>
+        <details class="step"><summary><h3>WayXAuto 0.2.1<span class="when">28 Oct 2026</span></h3></summary>
+          <ul>
+            <li>First public release: Android Auto on your motorcycle's display over Wi-Fi Direct, with guided setup and phone controls.</li>
+          </ul></details>
+      </div>
+      <p class="more">Every version, with its APK and SHA-256, is on <a href="https://github.com/sdmv-apps/wayxauto/releases" rel="noopener" target="_blank">GitHub Releases</a>.</p>
     </section>
 
     <section id="support">
