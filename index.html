@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -19,6 +19,17 @@
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
   gtag("config", "G-RPBBNJB4Y8", { allow_google_signals: false, allow_ad_personalization_signals: false });
+</script>
+<script>
+  // Language before first paint: ?lang=id|en (shareable), else the rider's last choice, else the browser's language.
+  (function () {
+    var l = null;
+    try { var q = new URLSearchParams(location.search).get("lang"); if (q === "id" || q === "en") { l = q; localStorage.setItem("lang", q); } } catch (e) {}
+    if (!l) try { l = localStorage.getItem("lang"); } catch (e) {}
+    if (l !== "id" && l !== "en") l = /^(id|in)\b/i.test(navigator.language || "") ? "id" : "en";
+    document.documentElement.setAttribute("data-lang", l);
+    document.documentElement.lang = l;
+  })();
 </script>
 <style>
   /* Same structure as the AutoMaxi site, in the WayXAuto app's look: light glass cards on a soft lime aurora, one
@@ -166,178 +177,286 @@
   .disclaimer { color: var(--fg-3); font-size: 0.82rem; max-width: 70ch; }
   .disclaimer p { margin: 0 0 8px; }
 
+  /* ---- Language: both texts are in the page; the inactive one is hidden ---- */
+  html[data-lang="en"] [lang="id"], html[data-lang="id"] [lang="en"] { display: none !important; }
+  .lang {
+    position: fixed; z-index: 10;
+    top: max(12px, env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
+    display: flex; padding: 3px; border-radius: 999px;
+    background: rgba(255,255,255,0.85); border: 1px solid var(--glass-stroke); box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  }
+  .lang button {
+    width: 42px; height: 32px; border: 0; border-radius: 999px; background: transparent; cursor: pointer;
+    font: 700 0.82rem var(--font); color: var(--fg-2);
+  }
+  html[data-lang="en"] .lang [data-set="en"], html[data-lang="id"] .lang [data-set="id"] { background: var(--fg); color: #fff; }
+
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
+  <div class="lang" role="group" aria-label="Language / Bahasa">
+    <button type="button" data-set="en" aria-label="English">EN</button>
+    <button type="button" data-set="id" aria-label="Bahasa Indonesia">ID</button>
+  </div>
   <main class="wrap">
 
     <header class="hero">
       <img class="logo" src="logo.png" alt="WayXAuto logo">
       <h1>WayXAuto</h1>
-      <p class="tagline">Android Auto on your OMOWAY display</p>
-      <p class="sub">WayXAuto shows Android Auto on your motorcycle's navigation screen over Wi-Fi: maps and music on the dash, controlled from your phone. Independent, free and ad-free.</p>
+      <p class="tagline" lang="en">Android Auto on your OMOWAY display</p>
+      <p class="tagline" lang="id">Android Auto di layar OMOWAY kamu</p>
+      <p class="sub" lang="en">WayXAuto shows Android Auto on your motorcycle's navigation screen over Wi-Fi: maps and music on the dash, controlled from your phone. Independent, free and ad-free.</p>
+      <p class="sub" lang="id">WayXAuto menampilkan Android Auto di layar navigasi motor kamu lewat Wi-Fi: peta dan musik di dasbor, dikontrol dari HP. Independen, gratis, dan tanpa iklan.</p>
 
       <div class="dl">
         <a class="btn" id="download" href="#" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
-          Download for Android
+          <span lang="en">Download for Android</span><span lang="id">Unduh untuk Android</span>
         </a>
         <div class="dl-meta">
-          <span class="counter pending" id="counter"><b id="count">—</b> downloads</span>
+          <span class="counter pending" id="counter"><b id="count">—</b> <span lang="en">downloads</span><span lang="id">unduhan</span></span>
           <span aria-hidden="true"> · </span>
           <span id="ver">APK · Android 8+</span>
         </div>
-        <p class="dl-help">Not from the Play Store, so Android asks you to allow it. <a href="#install">How to install</a></p>
+        <p class="dl-help" lang="en">Not from the Play Store, so Android asks you to allow it. <a href="#install">How to install</a></p>
+        <p class="dl-help" lang="id">Bukan dari Play Store, jadi Android akan minta izin dulu. <a href="#install">Cara instal</a></p>
       </div>
     </header>
 
     <section id="features">
-      <p class="eyebrow">What it does</p>
-      <h2>Your dash, with Android Auto on it</h2>
-      <p class="lead">WayXAuto runs Android Auto on your phone and sends it to your OMOWAY display whenever your motorcycle is connected. Pick your bike once, then ride.</p>
+      <p class="eyebrow"><span lang="en">What it does</span><span lang="id">Fitur</span></p>
+      <h2 lang="en">Your dash, with Android Auto on it</h2>
+      <h2 lang="id">Dasbor motormu, sekarang dengan Android Auto</h2>
+      <p class="lead" lang="en">WayXAuto runs Android Auto on your phone and sends it to your OMOWAY display whenever your motorcycle is connected. Pick your bike once, then ride.</p>
+      <p class="lead" lang="id">WayXAuto menjalankan Android Auto di HP dan mengirimnya ke layar OMOWAY setiap kali motor terhubung. Pilih motormu sekali, lalu tinggal jalan.</p>
       <div class="grid">
         <div class="card">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a10 10 0 0114 0"/><path d="M8.5 16a5 5 0 017 0"/><circle cx="12" cy="19.5" r="1"/></svg>
-          <h3>Wi-Fi, no pairing fuss</h3>
-          <p>Turn on your motorcycle, tap Find and choose its display. No account and no Bluetooth key.</p>
+          <h3 lang="en">Wi-Fi, no pairing fuss</h3>
+          <h3 lang="id">Lewat Wi-Fi, tanpa ribet pairing</h3>
+          <p lang="en">Turn on your motorcycle, tap Find and choose its display. No account and no Bluetooth key.</p>
+          <p lang="id">Nyalakan motor, ketuk Cari, lalu pilih layarnya. Tanpa akun dan tanpa kunci Bluetooth.</p>
         </div>
         <div class="card">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="10" rx="2"/><path d="M8 20h8"/></svg>
-          <h3>Live preview on your phone</h3>
-          <p>Android Auto starts with the app, so you see exactly what your dash shows before you set off.</p>
+          <h3 lang="en">Live preview on your phone</h3>
+          <h3 lang="id">Pratinjau langsung di HP</h3>
+          <p lang="en">Android Auto starts with the app, so you see exactly what your dash shows before you set off.</p>
+          <p lang="id">Android Auto langsung jalan begitu aplikasi dibuka, jadi kamu bisa lihat persis apa yang tampil di dasbor sebelum berangkat.</p>
         </div>
         <div class="card">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="9" rx="2"/><path d="M6 11h7M6 13h4"/></svg>
-          <h3>Fits the display</h3>
-          <p>Laid out for the wide OMOWAY screen, clear of its clock and overlays, with a smooth, steady picture.</p>
+          <h3 lang="en">Fits the display</h3>
+          <h3 lang="id">Pas di layar</h3>
+          <p lang="en">Laid out for the wide OMOWAY screen, clear of its clock and overlays, with a smooth, steady picture.</p>
+          <p lang="id">Ditata untuk layar OMOWAY yang lebar, tidak tertutup jam dan info di layar, dengan gambar yang mulus dan stabil.</p>
         </div>
         <div class="card">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.8-7 9-4-1.2-7-4.6-7-9V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>
-          <h3>Free &amp; independent</h3>
-          <p>No ads and no account. Free forever, supported entirely by optional donations.</p>
+          <h3 lang="en">Free &amp; independent</h3>
+          <h3 lang="id">Gratis &amp; independen</h3>
+          <p lang="en">No ads and no account. Free forever, supported entirely by optional donations.</p>
+          <p lang="id">Tanpa iklan dan tanpa akun. Gratis selamanya, didukung sepenuhnya oleh donasi sukarela.</p>
         </div>
       </div>
     </section>
 
     <section id="install">
-      <p class="eyebrow">Install</p>
-      <h2>Installing the APK</h2>
-      <p class="lead">WayXAuto is downloaded from this site rather than the Play Store, so Android shows a few safety prompts the first time. They are normal for any app installed this way.</p>
+      <p class="eyebrow"><span lang="en">Install</span><span lang="id">Instalasi</span></p>
+      <h2 lang="en">Installing the APK</h2>
+      <h2 lang="id">Cara instal APK</h2>
+      <p class="lead" lang="en">WayXAuto is downloaded from this site rather than the Play Store, so Android shows a few safety prompts the first time. They are normal for any app installed this way.</p>
+      <p class="lead" lang="id">WayXAuto diunduh dari situs ini, bukan dari Play Store, jadi Android akan menampilkan beberapa peringatan keamanan saat pertama kali. Ini normal untuk semua aplikasi yang diinstal dengan cara ini.</p>
       <div class="faq">
-        <div class="step"><h3>Download and install</h3>
-          <ol>
+        <div class="step"><h3><span lang="en">Download and install</span><span lang="id">Unduh dan instal</span></h3>
+          <ol lang="en">
             <li>Tap <b>Download for Android</b>. If your browser warns that this type of file can be harmful, tap <b>Download anyway</b>.</li>
             <li>Open the downloaded <b>WayXAuto</b> file from the notification or your Downloads.</li>
             <li>Android says your browser isn't allowed to install apps: tap <b>Settings</b>, turn on <b>Allow from this source</b>, then go back.</li>
             <li>Tap <b>Install</b>, then <b>Open</b>.</li>
           </ol>
-          <p>Updating? Install the new version over the old one. Your setup and keys are kept.</p></div>
-        <div class="step"><h3>Play Protect says the app is unknown or unsafe</h3>
-          <p>Play Protect warns about apps that don't come from the Play Store. Tap <b>More details</b>, then <b>Install anyway</b>. If it offers to scan the app, you can let it.</p>
-          <p>WayXAuto doesn't read your SMS, contacts or notifications, and doesn't use Accessibility. It asks only for what it needs to reach your motorcycle: nearby Wi-Fi devices (on older Android, location, which Android requires for Wi-Fi scanning) and notifications to show that it's running.</p>
-          <p>To check your download is the original file, compare its SHA-256 with the one on <a href="https://github.com/sdmv-apps/wayxauto/releases/latest" rel="noopener" target="_blank">GitHub Releases</a>.</p></div>
+          <ol lang="id">
+            <li>Ketuk <b>Unduh untuk Android</b>. Kalau browser memperingatkan bahwa file ini bisa berbahaya, ketuk <b>Tetap download</b> (Download anyway).</li>
+            <li>Buka file <b>WayXAuto</b> yang sudah diunduh, dari notifikasi atau folder Download.</li>
+            <li>Kalau Android bilang browser kamu tidak diizinkan menginstal aplikasi: ketuk <b>Setelan</b>, aktifkan <b>Izinkan dari sumber ini</b>, lalu kembali.</li>
+            <li>Ketuk <b>Instal</b>, lalu <b>Buka</b>.</li>
+          </ol>
+          <p lang="en">Updating? Install the new version over the old one. Your setup and keys are kept.</p>
+          <p lang="id">Mau update? Instal versi baru langsung di atas versi lama. Setup dan kunci kamu tetap tersimpan.</p></div>
+        <div class="step"><h3><span lang="en">Play Protect says the app is unknown or unsafe</span><span lang="id">Play Protect bilang aplikasi ini tidak dikenal atau tidak aman</span></h3>
+          <p lang="en">Play Protect warns about apps that don't come from the Play Store. Tap <b>More details</b>, then <b>Install anyway</b>. If it offers to scan the app, you can let it.</p>
+          <p lang="id">Play Protect memperingatkan semua aplikasi yang bukan dari Play Store. Ketuk <b>Detail selengkapnya</b>, lalu <b>Tetap instal</b>. Kalau ditawari untuk memindai aplikasinya, boleh saja.</p>
+          <p lang="en">WayXAuto doesn't read your SMS, contacts or notifications, and doesn't use Accessibility. It asks only for what it needs to reach your motorcycle: nearby Wi-Fi devices (on older Android, location, which Android requires for Wi-Fi scanning) and notifications to show that it's running.</p>
+          <p lang="id">WayXAuto tidak membaca SMS, kontak, atau notifikasi kamu, dan tidak memakai Aksesibilitas. Aplikasi ini hanya meminta izin yang dibutuhkan untuk terhubung ke motor: perangkat Wi-Fi di sekitar (di Android lama: lokasi, yang diwajibkan Android untuk memindai Wi-Fi) dan notifikasi untuk menandakan aplikasi sedang berjalan.</p>
+          <p lang="en">To check your download is the original file, compare its SHA-256 with the one on <a href="https://github.com/sdmv-apps/wayxauto/releases/latest" rel="noopener" target="_blank">GitHub Releases</a>. The only official downloads are this page and WayXAuto's GitHub Releases. Copies shared elsewhere may be modified.</p>
+          <p lang="id">Untuk memastikan file yang kamu unduh masih asli, cocokkan SHA-256-nya dengan yang ada di <a href="https://github.com/sdmv-apps/wayxauto/releases/latest" rel="noopener" target="_blank">GitHub Releases</a>. Unduhan resmi hanya dari halaman ini dan GitHub Releases WayXAuto. Salinan yang dibagikan di tempat lain bisa saja sudah diubah.</p></div>
       </div>
     </section>
 
     <section id="setup">
-      <p class="eyebrow">Getting started</p>
-      <h2>Three steps to the dash</h2>
-      <p class="lead">A short one-time setup. The app walks you through it and checks each step before you ride.</p>
+      <p class="eyebrow"><span lang="en">Getting started</span><span lang="id">Mulai</span></p>
+      <h2 lang="en">Three steps to the dash</h2>
+      <h2 lang="id">Tiga langkah ke dasbor</h2>
+      <p class="lead" lang="en">A short one-time setup. The app walks you through it and checks each step before you ride.</p>
+      <p class="lead" lang="id">Setup singkat, cukup sekali. Aplikasi akan memandu kamu dan mengecek setiap langkah sebelum berangkat.</p>
       <div class="steps">
-        <div class="step"><span class="n"></span><div><h3>Install WayXAuto</h3><p>Download the APK and allow the install from your browser or files app.</p></div></div>
-        <div class="step"><span class="n"></span><div><h3>Get the keys &amp; start Android Auto's head unit server</h3><p>Tap Get keys: WayXAuto downloads two free public files and sets them up. Then turn on Android Auto developer mode and start its head unit server. The app shows each step and ticks it off by itself.</p></div></div>
-        <div class="step"><span class="n"></span><div><h3>Turn on your motorcycle and pick its display</h3><p>Open WayXAuto, tap Find and choose your motorcycle. Android Auto appears on the dash.</p></div></div>
+        <div class="step"><span class="n"></span><div lang="en"><h3>Install WayXAuto</h3><p>Download the APK and allow the install from your browser or files app.</p></div><div lang="id"><h3>Instal WayXAuto</h3><p>Unduh APK-nya, lalu izinkan instalasi dari browser atau aplikasi file kamu.</p></div></div>
+        <div class="step"><span class="n"></span><div lang="en"><h3>Get the keys &amp; start Android Auto's head unit server</h3><p>Tap Get keys: WayXAuto downloads two free public files and sets them up. Then turn on Android Auto developer mode and start its head unit server. The app shows each step and ticks it off by itself.</p></div><div lang="id"><h3>Unduh kunci &amp; jalankan server head unit Android Auto</h3><p>Ketuk Unduh kunci: WayXAuto akan mengunduh dua file publik gratis dan langsung memasangnya. Lalu aktifkan mode developer Android Auto dan jalankan server head unit-nya. Aplikasi menampilkan setiap langkah dan mencentangnya sendiri.</p></div></div>
+        <div class="step"><span class="n"></span><div lang="en"><h3>Turn on your motorcycle and pick its display</h3><p>Open WayXAuto, tap Find and choose your motorcycle. Android Auto appears on the dash.</p></div><div lang="id"><h3>Nyalakan motor dan pilih layarnya</h3><p>Buka WayXAuto, ketuk Cari, lalu pilih motor kamu. Android Auto akan muncul di dasbor.</p></div></div>
       </div>
     </section>
 
     <section id="faq">
-      <p class="eyebrow">Questions</p>
-      <h2>Setup, explained</h2>
+      <p class="eyebrow"><span lang="en">Questions</span><span lang="id">Pertanyaan</span></p>
+      <h2 lang="en">Setup, explained</h2>
+      <h2 lang="id">Penjelasan setup</h2>
       <div class="faq">
-        <details class="step"><summary><h3>Where do the head unit keys come from?</h3></summary>
-          <p>Android Auto only connects to a head unit that presents a certificate. WayXAuto uses the free sample certificate and key from <a href="https://github.com/andreknieriem/open-headunit/tree/a8d8a92d80256feee56174a21d2d33cc2664c9a7/app/src/main/res/raw" rel="noopener" target="_blank">Open Headunit</a>, an open-source Android Auto head unit project on GitHub. They are published openly for testing, so everyone gets the same two files. They aren't secret, contain nothing about you, your phone or your motorcycle, and don't unlock anything. The certificate is labelled &ldquo;Google-Android-Reference&rdquo;, the name of that sample identity.</p>
-          <p>WayXAuto doesn't include them in the app. When you tap Get keys, it downloads them from GitHub, from the exact version WayXAuto was tested with, checks their fingerprints and keeps them inside the app only.</p></details>
-        <details class="step"><summary><h3>How do I turn on Android Auto developer mode?</h3></summary>
-          <ol>
+        <details class="step"><summary><h3><span lang="en">Where do the head unit keys come from?</span><span lang="id">Dari mana asal kunci head unit?</span></h3></summary>
+          <p lang="en">Android Auto only connects to a head unit that presents a certificate. WayXAuto uses the free sample certificate and key from <a href="https://github.com/andreknieriem/open-headunit/tree/a8d8a92d80256feee56174a21d2d33cc2664c9a7/app/src/main/res/raw" rel="noopener" target="_blank">Open Headunit</a>, an open-source Android Auto head unit project on GitHub. They are published openly for testing, so everyone gets the same two files. They aren't secret, contain nothing about you, your phone or your motorcycle, and don't unlock anything. The certificate is labelled &ldquo;Google-Android-Reference&rdquo;, the name of that sample identity.</p>
+          <p lang="id">Android Auto hanya mau terhubung ke head unit yang punya sertifikat. WayXAuto memakai sertifikat dan kunci contoh gratis dari <a href="https://github.com/andreknieriem/open-headunit/tree/a8d8a92d80256feee56174a21d2d33cc2664c9a7/app/src/main/res/raw" rel="noopener" target="_blank">Open Headunit</a>, proyek head unit Android Auto open-source di GitHub. File ini dibagikan secara terbuka untuk pengujian, jadi semua orang mendapat dua file yang sama. Isinya bukan rahasia, tidak berisi data apa pun tentang kamu, HP, atau motor kamu, dan tidak membuka akses apa pun. Sertifikatnya bernama &ldquo;Google-Android-Reference&rdquo;, yaitu nama identitas contoh tersebut.</p>
+          <p lang="en">WayXAuto doesn't include them in the app. When you tap Get keys, it downloads them from GitHub, from the exact version WayXAuto was tested with, checks their fingerprints and keeps them inside the app only.</p>
+          <p lang="id">WayXAuto tidak menyertakan file ini di dalam aplikasi. Saat kamu ketuk Unduh kunci, aplikasi mengambilnya dari GitHub, dari versi yang sama persis dengan yang sudah diuji, mengecek sidik jarinya, lalu menyimpannya hanya di dalam aplikasi.</p></details>
+        <details class="step"><summary><h3><span lang="en">How do I turn on Android Auto developer mode?</span><span lang="id">Bagaimana cara mengaktifkan mode developer Android Auto?</span></h3></summary>
+          <ol lang="en">
             <li>In WayXAuto setup, tap <b>Open Android Auto settings</b>.</li>
             <li>Scroll to the very bottom and tap <b>Version</b> about 10 times. When Android Auto asks to allow development settings, tap <b>OK</b>.</li>
             <li>Tap <b>&#8942;</b> at the top right, then <b>Start head unit server</b>. No &#8942; menu yet? Do step 2 again.</li>
             <li>Come back to WayXAuto. The step turns green by itself.</li>
           </ol>
-          <p>Developer mode stays on. After a phone restart, or if Android Auto stops the server, only step 3 is needed again.</p></details>
-        <details class="step"><summary><h3>Android Auto doesn't answer on my Xiaomi, Redmi or POCO phone</h3></summary>
-          <p>These phones pause apps in the background, including Android Auto, so it can't answer WayXAuto. WayXAuto's setup shows this as step 4.</p>
-          <ol>
+          <ol lang="id">
+            <li>Di setup WayXAuto, ketuk <b>Buka pengaturan Android Auto</b>.</li>
+            <li>Gulir ke paling bawah, lalu ketuk <b>Versi</b> (Version) sekitar 10 kali. Saat Android Auto minta izin untuk setelan developer, ketuk <b>OK</b>.</li>
+            <li>Ketuk <b>&#8942;</b> di kanan atas, lalu pilih <b>Start head unit server</b>. Menu &#8942; belum muncul? Ulangi langkah 2.</li>
+            <li>Kembali ke WayXAuto. Langkah ini otomatis jadi hijau.</li>
+          </ol>
+          <p lang="en">Developer mode stays on. After a phone restart, or if Android Auto stops the server, only step 3 is needed again.</p>
+          <p lang="id">Mode developer tetap aktif. Setelah HP restart, atau kalau Android Auto menghentikan server, cukup ulangi langkah 3.</p></details>
+        <details class="step"><summary><h3><span lang="en">Android Auto doesn't answer on my Xiaomi, Redmi or POCO phone</span><span lang="id">Android Auto tidak merespons di HP Xiaomi, Redmi, atau POCO</span></h3></summary>
+          <p lang="en">These phones pause apps in the background, including Android Auto, so it can't answer WayXAuto. WayXAuto's setup shows this as step 4.</p>
+          <p lang="id">HP ini menjeda aplikasi di latar belakang, termasuk Android Auto, jadi Android Auto tidak bisa merespons WayXAuto. Di setup WayXAuto, ini ada di langkah 4.</p>
+          <ol lang="en">
             <li>Open Settings &rarr; Apps &rarr; <b>Android Auto</b> (or tap <b>Open Android Auto app info</b> in WayXAuto).</li>
             <li>Turn on <b>Autostart</b>.</li>
             <li>Tap <b>Battery saver</b> and choose <b>No restrictions</b>.</li>
             <li>Come back to WayXAuto and start Android Auto again.</li>
+          </ol>
+          <ol lang="id">
+            <li>Buka Pengaturan &rarr; Aplikasi &rarr; <b>Android Auto</b> (atau ketuk <b>Buka info aplikasi Android Auto</b> di WayXAuto).</li>
+            <li>Aktifkan <b>Mulai otomatis</b> (Autostart).</li>
+            <li>Ketuk <b>Penghemat baterai</b> (Battery saver), lalu pilih <b>Tanpa batasan</b> (No restrictions).</li>
+            <li>Kembali ke WayXAuto, lalu mulai Android Auto lagi.</li>
           </ol></details>
-        <details class="step"><summary><h3>My motorcycle still shows the OMOWAY app</h3></summary>
-          <p>Your motorcycle shows one phone app at a time, so the OMOWAY app has to let go first.</p>
-          <ol>
+        <details class="step"><summary><h3><span lang="en">My motorcycle still shows the OMOWAY app</span><span lang="id">Motor saya masih menampilkan aplikasi OMOWAY</span></h3></summary>
+          <p lang="en">Your motorcycle shows one phone app at a time, so the OMOWAY app has to let go first.</p>
+          <p lang="id">Motor kamu hanya bisa menampilkan satu aplikasi HP dalam satu waktu, jadi aplikasi OMOWAY harus dihentikan dulu.</p>
+          <ol lang="en">
             <li>Force stop the OMOWAY app. WayXAuto shows a button that opens its app info.</li>
             <li>On your motorcycle, close <b>Navigation</b> and open it again. Android Auto then appears.</li>
+          </ol>
+          <ol lang="id">
+            <li>Paksa berhenti aplikasi OMOWAY. WayXAuto menampilkan tombol untuk membuka info aplikasinya.</li>
+            <li>Di motor, tutup menu <b>Navigasi</b> lalu buka lagi. Android Auto akan muncul.</li>
           </ol></details>
       </div>
     </section>
 
     <section id="changelog">
-      <p class="eyebrow">Changelog</p>
-      <h2>What's new</h2>
+      <p class="eyebrow"><span lang="en">Changelog</span><span lang="id">Riwayat versi</span></p>
+      <h2 lang="en">What's new</h2>
+      <h2 lang="id">Yang baru</h2>
       <div class="faq">
-        <details class="step" open><summary><h3>WayXAuto 0.2.8<span class="tag">Latest</span><span class="when">30 Oct 2026</span></h3></summary>
-          <ul>
+        <details class="step" open><summary><h3>WayXAuto 0.2.9<span class="tag"><span lang="en">Latest</span><span lang="id">Terbaru</span></span><span class="when"><span lang="en">30 Oct 2026</span><span lang="id">30 Okt 2026</span></span></h3></summary>
+          <ul lang="en">
+            <li><b>Light mode on the motorcycle.</b> The background around Android Auto now follows your bike's light or dark mode, so the clock and speed stay readable in both.</li>
+            <li><b>Map follows the time.</b> Android Auto's map turns dark from 6 pm to 6 am and light again in the morning.</li>
+          </ul>
+          <ul lang="id">
+            <li><b>Mode terang di motor.</b> Latar di sekitar Android Auto sekarang ikut mode terang atau gelap di motor, jadi jam dan kecepatan tetap kelihatan di kedua mode.</li>
+            <li><b>Peta ikut jam.</b> Peta Android Auto jadi gelap dari jam 6 sore sampai jam 6 pagi, lalu terang lagi di pagi hari.</li>
+          </ul></details>
+        <details class="step"><summary><h3>WayXAuto 0.2.8<span class="when"><span lang="en">30 Oct 2026</span><span lang="id">30 Okt 2026</span></span></h3></summary>
+          <ul lang="en">
             <li><b>Bahasa Indonesia.</b> Every screen has an EN | ID switch at the top right. Phones set to Indonesian start in Bahasa Indonesia, and WayXAuto remembers your choice.</li>
             <li><b>What's new in your language.</b> The update prompt lists the changes in Bahasa Indonesia when you use it.</li>
+          </ul>
+          <ul lang="id">
+            <li><b>Bahasa Indonesia.</b> Setiap layar punya tombol EN | ID di kanan atas. HP yang memakai bahasa Indonesia langsung tampil dalam Bahasa Indonesia, dan WayXAuto mengingat pilihanmu.</li>
+            <li><b>Info update dalam bahasamu.</b> Pemberitahuan update menampilkan daftar perubahan dalam Bahasa Indonesia kalau kamu memakainya.</li>
           </ul></details>
-        <details class="step"><summary><h3>WayXAuto 0.2.7<span class="when">29 Oct 2026</span></h3></summary>
-          <ul>
+        <details class="step"><summary><h3>WayXAuto 0.2.7<span class="when"><span lang="en">29 Oct 2026</span><span lang="id">29 Okt 2026</span></span></h3></summary>
+          <ul lang="en">
             <li><b>Xiaomi, Redmi and POCO phones.</b> Setup has a new step that opens Android Auto's app info, where you turn on Autostart and set Battery saver to No restrictions. Without it, the phone pauses Android Auto and it never answers WayXAuto.</li>
             <li><b>What's new in updates.</b> The update prompt now lists what changed.</li>
+          </ul>
+          <ul lang="id">
+            <li><b>HP Xiaomi, Redmi, dan POCO.</b> Ada langkah baru di setup yang membuka info aplikasi Android Auto, tempat kamu mengaktifkan Mulai otomatis dan mengatur Penghemat baterai ke Tanpa batasan. Tanpa ini, HP menjeda Android Auto sehingga tidak pernah merespons WayXAuto.</li>
+            <li><b>Info update.</b> Pemberitahuan update sekarang menampilkan daftar perubahan.</li>
           </ul></details>
-        <details class="step"><summary><h3>WayXAuto 0.2.6<span class="when">29 Oct 2026</span></h3></summary>
-          <ul>
+        <details class="step"><summary><h3>WayXAuto 0.2.6<span class="when"><span lang="en">29 Oct 2026</span><span lang="id">29 Okt 2026</span></span></h3></summary>
+          <ul lang="en">
             <li><b>Share diagnostics.</b> If Android Auto doesn't reach your motorcycle, tap Share diagnostics on the home screen and send the report to us. It lists your phone, its video encoders and the last session, and leaves your phone only when you choose where to share it.</li>
             <li>Skips secure video encoders, which on some MediaTek phones could start but send no picture to the motorcycle.</li>
+          </ul>
+          <ul lang="id">
+            <li><b>Kirim diagnostik.</b> Kalau Android Auto tidak muncul di motor, ketuk Kirim diagnostik di halaman utama dan kirim laporannya ke kami. Laporan berisi info HP, encoder video, dan sesi terakhir, dan hanya keluar dari HP saat kamu memilih mau dikirim ke mana.</li>
+            <li>Melewati encoder video &ldquo;secure&rdquo;, yang di beberapa HP MediaTek bisa jalan tapi tidak mengirim gambar ke motor.</li>
           </ul></details>
-        <details class="step"><summary><h3>WayXAuto 0.2.5<span class="when">29 Oct 2026</span></h3></summary>
-          <ul>
+        <details class="step"><summary><h3>WayXAuto 0.2.5<span class="when"><span lang="en">29 Oct 2026</span><span lang="id">29 Okt 2026</span></span></h3></summary>
+          <ul lang="en">
             <li><b>Get keys in one tap.</b> WayXAuto downloads the free public head unit keys itself and checks them. No Downloads folder, no file picker. &ldquo;Where do these come from?&rdquo; explains what they are.</li>
             <li><b>Clearer developer mode steps.</b> The setup step turns green on its own once Android Auto's head unit server is running.</li>
             <li><b>Motorcycle still showing the OMOWAY app?</b> WayXAuto notices and walks you through it: force stop the OMOWAY app, then close and reopen Navigation on your motorcycle.</li>
             <li>&ldquo;Android Auto is on your bike&rdquo; now shows only once the motorcycle has actually accepted the picture.</li>
+          </ul>
+          <ul lang="id">
+            <li><b>Unduh kunci sekali ketuk.</b> WayXAuto mengunduh kunci head unit publik yang gratis dan mengeceknya sendiri. Tanpa folder Download, tanpa memilih file. &ldquo;File ini dari mana?&rdquo; menjelaskan isinya.</li>
+            <li><b>Langkah mode developer lebih jelas.</b> Langkah setup otomatis jadi hijau begitu server head unit Android Auto berjalan.</li>
+            <li><b>Motor masih menampilkan aplikasi OMOWAY?</b> WayXAuto mendeteksinya dan memandu kamu: paksa berhenti aplikasi OMOWAY, lalu tutup dan buka lagi Navigasi di motor.</li>
+            <li>&ldquo;Android Auto tampil di motor&rdquo; sekarang baru muncul setelah motor benar-benar menerima gambarnya.</li>
           </ul></details>
-        <details class="step"><summary><h3>WayXAuto 0.2.3<span class="when">28 Oct 2026</span></h3></summary>
-          <ul>
+        <details class="step"><summary><h3>WayXAuto 0.2.3<span class="when"><span lang="en">28 Oct 2026</span><span lang="id">28 Okt 2026</span></span></h3></summary>
+          <ul lang="en">
             <li>Anonymous usage statistics with Google Analytics: active users, and whether Android Auto starts and reaches the motorcycle. No account, no ads, no advertising ID.</li>
+          </ul>
+          <ul lang="id">
+            <li>Statistik pemakaian anonim dengan Google Analytics: jumlah pengguna aktif, dan apakah Android Auto berhasil jalan dan sampai ke motor. Tanpa akun, tanpa iklan, tanpa ID iklan.</li>
           </ul></details>
-        <details class="step"><summary><h3>WayXAuto 0.2.2<span class="when">28 Oct 2026</span></h3></summary>
-          <ul>
+        <details class="step"><summary><h3>WayXAuto 0.2.2<span class="when"><span lang="en">28 Oct 2026</span><span lang="id">28 Okt 2026</span></span></h3></summary>
+          <ul lang="en">
             <li>Works on more phones: Android Auto now starts on phones whose video encoder rejected the previous settings, for example the POCO F3.</li>
+          </ul>
+          <ul lang="id">
+            <li>Jalan di lebih banyak HP: Android Auto sekarang bisa jalan di HP yang encoder videonya menolak setelan sebelumnya, misalnya POCO F3.</li>
           </ul></details>
-        <details class="step"><summary><h3>WayXAuto 0.2.1<span class="when">28 Oct 2026</span></h3></summary>
-          <ul>
+        <details class="step"><summary><h3>WayXAuto 0.2.1<span class="when"><span lang="en">28 Oct 2026</span><span lang="id">28 Okt 2026</span></span></h3></summary>
+          <ul lang="en">
             <li>First public release: Android Auto on your motorcycle's display over Wi-Fi Direct, with guided setup and phone controls.</li>
+          </ul>
+          <ul lang="id">
+            <li>Rilis publik pertama: Android Auto di layar motor lewat Wi-Fi Direct, dengan setup terpandu dan kontrol dari HP.</li>
           </ul></details>
       </div>
-      <p class="more">Every version, with its APK and SHA-256, is on <a href="https://github.com/sdmv-apps/wayxauto/releases" rel="noopener" target="_blank">GitHub Releases</a>.</p>
+      <p class="more" lang="en">Every version, with its APK and SHA-256, is on <a href="https://github.com/sdmv-apps/wayxauto/releases" rel="noopener" target="_blank">GitHub Releases</a>.</p>
+      <p class="more" lang="id">Semua versi, lengkap dengan APK dan SHA-256-nya, ada di <a href="https://github.com/sdmv-apps/wayxauto/releases" rel="noopener" target="_blank">GitHub Releases</a>.</p>
     </section>
 
     <section id="support">
       <div class="support">
-        <p class="eyebrow">Keep it free</p>
-        <h2>Enjoying WayXAuto?</h2>
-        <p class="lead" style="margin-bottom:0">It's free, ad-free and built by a fellow rider in spare hours. If it earned a place on your bike, a small tip keeps fixes and new features coming, and keeps WayXAuto free for everyone.</p>
+        <p class="eyebrow"><span lang="en">Keep it free</span><span lang="id">Bantu tetap gratis</span></p>
+        <h2 lang="en">Enjoying WayXAuto?</h2>
+        <h2 lang="id">Suka WayXAuto?</h2>
+        <p class="lead" style="margin-bottom:0" lang="en">It's free, ad-free and built by a fellow rider in spare hours. If it earned a place on your bike, a small tip keeps fixes and new features coming, and keeps WayXAuto free for everyone.</p>
+        <p class="lead" style="margin-bottom:0" lang="id">WayXAuto gratis, tanpa iklan, dan dibuat oleh sesama rider di waktu luang. Kalau aplikasi ini bermanfaat di motormu, sedikit dukungan bikin perbaikan dan fitur baru terus hadir, dan WayXAuto tetap gratis untuk semua.</p>
         <div class="rows">
           <a class="srow saweria" href="https://saweria.co/sdmv" target="_blank" rel="noopener">
             <span class="tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
-            <span><span class="t">Saweria</span><br><span class="h">For riders in Indonesia</span></span>
+            <span><span class="t">Saweria</span><br><span class="h"><span lang="en">For riders in Indonesia</span><span lang="id">Untuk rider di Indonesia</span></span></span>
           </a>
           <a class="srow kofi" href="https://ko-fi.com/sdmvdash" target="_blank" rel="noopener">
             <span class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v5a4 4 0 01-4 4H8a4 4 0 01-4-4V8z"/><path d="M17 9h2.5a2.5 2.5 0 010 5H17"/><path d="M8 3v2M12 3v2"/></svg></span>
-            <span><span class="t">Ko-fi</span><br><span class="h">For riders worldwide</span></span>
+            <span><span class="t">Ko-fi</span><br><span class="h"><span lang="en">For riders worldwide</span><span lang="id">Untuk rider di seluruh dunia</span></span></span>
           </a>
         </div>
       </div>
@@ -346,12 +465,17 @@
     <footer>
       <div class="sdmv">
         <img src="sdmv.png" alt="SDMV" onerror="this.style.display='none'">
-        <span>An SDMV project</span>
+        <span><span lang="en">An SDMV project</span><span lang="id">Proyek dari SDMV</span></span>
       </div>
-      <div class="disclaimer">
+      <div class="disclaimer" lang="en">
         <p>Not affiliated with, endorsed by, or supported by OMOWAY or Google. OMOWAY, Android Auto and related names are trademarks of their respective owners.</p>
         <p>Privacy: this site and the app use Google Analytics for anonymous usage statistics (page views, downloads, and in the app whether Android Auto starts). No account, no ads, no advertising ID.</p>
         <p>WayXAuto is experimental software, provided as-is with no warranty. Never interact with your phone or the motorcycle's display while riding: set up everything before you set off, and use it lawfully.</p>
+      </div>
+      <div class="disclaimer" lang="id">
+        <p>Tidak berafiliasi dengan OMOWAY atau Google, dan tidak didukung oleh keduanya. OMOWAY, Android Auto, dan nama terkait adalah merek dagang milik pemiliknya masing-masing.</p>
+        <p>Privasi: situs ini dan aplikasinya memakai Google Analytics untuk statistik pemakaian anonim (kunjungan halaman, unduhan, dan di aplikasi: apakah Android Auto berhasil jalan). Tanpa akun, tanpa iklan, tanpa ID iklan.</p>
+        <p>WayXAuto adalah software eksperimental, disediakan apa adanya tanpa garansi. Jangan pernah mengoperasikan HP atau layar motor saat berkendara: atur semuanya sebelum berangkat, dan gunakan sesuai aturan yang berlaku.</p>
       </div>
     </footer>
 
@@ -365,34 +489,49 @@
   var RELEASES_PAGE = "https://github.com/" + OWNER + "/" + REPO + "/releases/latest";
 
   (function () {
+    var root = document.documentElement;
     var btn = document.getElementById("download");
     var countEl = document.getElementById("count");
     var counterEl = document.getElementById("counter");
     var verEl = document.getElementById("ver");
+    var total = null;
     // Fallback that always works even if the API call fails or JS is slow.
     btn.href = RELEASES_PAGE;
     btn.addEventListener("click", function () {
-      if (window.gtag) gtag("event", "download_click", { release: verEl.textContent.split(" ")[0] || "unknown" });
+      if (window.gtag) gtag("event", "download_click", { release: verEl.textContent.split(" ")[0] || "unknown", language: root.getAttribute("data-lang") });
     });
 
-    function fmt(n) { return n.toLocaleString("en-US"); }
+    function fmt(n) { return n.toLocaleString(root.getAttribute("data-lang") === "id" ? "id-ID" : "en-US"); }
+
+    // EN | ID switch: both texts are in the page; this only flips which one shows and remembers the choice.
+    Array.prototype.forEach.call(document.querySelectorAll(".lang [data-set]"), function (b) {
+      b.addEventListener("click", function () {
+        var l = b.getAttribute("data-set");
+        if (root.getAttribute("data-lang") === l) return;
+        root.setAttribute("data-lang", l); root.lang = l;
+        try { localStorage.setItem("lang", l); } catch (e) {}
+        if (total !== null) countEl.textContent = fmt(total);
+        if (window.gtag) gtag("event", "language_switch", { language: l });
+      });
+    });
 
     fetch("https://api.github.com/repos/" + OWNER + "/" + REPO + "/releases")
       .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
       .then(function (releases) {
         if (!Array.isArray(releases) || !releases.length) throw new Error("no releases");
         // Total downloads = every APK asset across every published release.
-        var total = 0, latestApk = null, latestTag = null;
+        var sum = 0, latestApk = null, latestTag = null;
         releases.forEach(function (rel) {
           (rel.assets || []).forEach(function (a) {
             if (/\.apk$/i.test(a.name)) {
-              total += a.download_count || 0;
+              sum += a.download_count || 0;
               if (!latestApk && !rel.prerelease && !rel.draft) { latestApk = a.browser_download_url; latestTag = rel.tag_name; }
             }
           });
         });
         if (latestApk) btn.href = latestApk;
         if (latestTag) verEl.textContent = latestTag + " · Android 8+";
+        total = sum;
         countEl.textContent = fmt(total);
         counterEl.classList.remove("pending");
       })
